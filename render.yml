@@ -1,20 +1,16 @@
+version: '3.8'
+
 services:
-  - type: web
-    name: n8n
-    env: docker
-    plan: free
-    autoDeploy: true
-    dockerCommand: "n8n start"
-    envVars:
-      - key: N8N_BASIC_AUTH_ACTIVE
-        value: "true"
-      - key: N8N_BASIC_AUTH_USER
-        value: "admin"
-      - key: N8N_BASIC_AUTH_PASSWORD
-        value: "password123"
-      - key: N8N_HOST
-        value: "your-service.onrender.com"
-      - key: N8N_PORT
-        value: "10000"
-      - key: N8N_PROTOCOL
-        value: "https"
+    n8n:
+        container_name: n8n,
+        build: ,
+        ports:
+            - "5678:5678"
+        volumes:
+            - n8n-data:/home/node/.n8n
+            - ./shared:/data/shared
+        restart: unless-stopped
+
+volumes:
+    n8n-data:
+        name: n8n-data
